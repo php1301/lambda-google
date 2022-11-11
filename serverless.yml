@@ -1,0 +1,20 @@
+org: php1301
+app: scrape-google
+service: scrape-google
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: '*'
+  scrapeGoogle:
+    handler: handler.handler
+    events:
+      - http: 'POST /scrapeGoogle'  
+plugins:
+  - serverless-offline
