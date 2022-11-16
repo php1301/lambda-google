@@ -16,13 +16,7 @@ const getUserAgents = require("./read-user-agent");
 // 	},
 // });
 
-async function sleep(millis) {
-	return new Promise((resolve) =>
-		setTimeout(() => {
-			resolve(true);
-		}, millis)
-	);
-}
+
 module.exports = async function getSearchResults(searchString) {
 	try {
 		// await sleep(5000);

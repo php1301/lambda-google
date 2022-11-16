@@ -22,6 +22,14 @@ app.post("/scrapeGoogle", async (req, res, next) => {
     const ip = req?.headers["x-forwarded-for"] || req?.socket?.remoteAddress;
     console.log("IP", ip);
     const result = await getSearchResults(kw);
+    const funcConfig = lambda.getFunction({
+      FunctionName: 'scrape-google-dev-scrapeGoogle',
+    })
+    let status = (await funcConfig.promise()).Configuration.LastUpdateStatus
+    console.log(status)
+    while (status === "InProgress") {
+      status = (await funcConfig.promise()).Configuration.LastUpdateStatus
+    }
     await lambda.updateFunctionConfiguration({
       FunctionName: 'scrape-google-dev-scrapeGoogle',
       Environment: {
